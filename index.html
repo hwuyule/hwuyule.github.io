@@ -160,6 +160,80 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-用shell脚本简化hexo更新" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/05/%E7%94%A8shell%E8%84%9A%E6%9C%AC%E7%AE%80%E5%8C%96hexo%E6%9B%B4%E6%96%B0/">用shell脚本简化hexo更新</a>
+    </h1>
+  
+
+        <!--显示阅读次数-->
+
+        
+        <a href="/2020/12/05/%E7%94%A8shell%E8%84%9A%E6%9C%AC%E7%AE%80%E5%8C%96hexo%E6%9B%B4%E6%96%B0/" class="archive-article-date">
+  	<time datetime="2020-12-04T17:06:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-05</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>hexo更新需要以下几个命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+
+<p>可以新建一个update.sh</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/zsh</span></span><br><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+
+<p>只要在hexo根目录中执行<code>sh ./update.sh</code>即可。</p>
+<p>另外，可以在<code>~/zshrc</code>中配置别名<code>alias</code>，方便打开、进入hexo目录。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">alias openHexoDir=&quot;open /Users/devinhuang/Documents/hexoDir/&quot;</span><br><span class="line">alias openHexoPost=&quot;open /Users/devinhuang/Documents/hexoDir/source/_posts&quot;</span><br><span class="line">alias cdHexoDir=&quot;cd /Users/devinhuang/Documents/hexoDir/&quot;</span><br><span class="line">alias cdHexoPost=&quot;cd /Users/devinhuang/Documents/hexoDir/source/_posts&quot;</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/12/05/%E7%94%A8shell%E8%84%9A%E6%9C%AC%E7%AE%80%E5%8C%96hexo%E6%9B%B4%E6%96%B0/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-gradle相关命令学习" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
