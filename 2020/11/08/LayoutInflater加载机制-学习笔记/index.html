@@ -17,7 +17,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://tva1.sinaimg.cn/large/0081Kckwgy1gkhn87wsc0j30rc0dutag.jpg">
 <meta property="article:published_time" content="2020-11-08T04:05:56.000Z">
-<meta property="article:modified_time" content="2020-11-08T04:19:54.277Z">
+<meta property="article:modified_time" content="2020-11-08T16:02:25.007Z">
 <meta property="article:author" content="huangheming">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://tva1.sinaimg.cn/large/0081Kckwgy1gkhn87wsc0j30rc0dutag.jpg">
@@ -197,7 +197,21 @@
 <p><img src="https://tva1.sinaimg.cn/large/0081Kckwgy1gkhn87wsc0j30rc0dutag.jpg" alt="image-20201108121730335"></p>
 <a id="more"></a>
 
-<h3 id="ContextImpl：Context公共API的实现"><a href="#ContextImpl：Context公共API的实现" class="headerlink" title="ContextImpl：Context公共API的实现"></a>ContextImpl：Context公共API的实现</h3><h3 id="ContextWrapper：Context的装饰器"><a href="#ContextWrapper：Context的装饰器" class="headerlink" title="ContextWrapper：Context的装饰器"></a>ContextWrapper：Context的装饰器</h3><p>参考</p>
+<h3 id="ContextImpl：Context公共API的实现"><a href="#ContextImpl：Context公共API的实现" class="headerlink" title="ContextImpl：Context公共API的实现"></a>ContextImpl：Context公共API的实现</h3><p><code>Context</code>的公共<code>API</code>的实现都交给了<code>ContextImpl</code>，以获取系统服务为例，<code>Android</code>应用层将系统服务注册相关的<code>API</code>放在了<code>SystemServiceRegistry</code>类中，而<code>ContextImpl</code>则是<code>SystemServiceRegistry#getSystemService</code>的唯一调用者</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">class ContextImpl extends Context &#123;</span><br><span class="line">    &#x2F;&#x2F; 该成员即开发者使用的&#96;Activity&#96;等外部组件</span><br><span class="line">    private Context mOuterContext;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public Object getSystemService(String name) &#123;</span><br><span class="line">        return SystemServiceRegistry.getSystemService(this, name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p>这种设计使得 <strong>系统服务的注册</strong>（<code>SystemServiceRegistry</code>类） 和 <strong>系统服务的获取</strong>（<code>ContextImpl</code>类） 在代码中只有一处声明和调用，大幅降低了模块之间的耦合。</p>
+<h3 id="ContextWrapper：Context的装饰器"><a href="#ContextWrapper：Context的装饰器" class="headerlink" title="ContextWrapper：Context的装饰器"></a>ContextWrapper：Context的装饰器</h3><p><code>ContextWrapper</code>则是<code>Context</code>的装饰器，当组件需要获取系统服务时交给<code>ContextImpl</code>成员处理，伪代码实现如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// class Activity extends ContextWrapper</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ContextWrapper</span> <span class="keyword">extends</span> <span class="title">Context</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 1.将 ContextImpl 作为成员进行存储</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ContextWrapper</span><span class="params">(ContextImpl base)</span> </span>&#123;</span><br><span class="line">        mBase = base;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ContextImpl mBase;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 2.系统服务的获取统一交给了ContextImpl</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">getSystemService</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> mBase.getSystemService(name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>ContextWrapper</code>装饰器的初始化如何实现呢？每当一个<code>ContextWrapper</code>组件（如<code>Activity</code>）被创建时，都为其创建一个对应的<code>ContextImpl</code>实例，伪代码实现如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">ActivityThread</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 每当`Activity`被创建</span></span><br><span class="line">  <span class="function"><span class="keyword">private</span> Activity <span class="title">performLaunchActivity</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="comment">// ....</span></span><br><span class="line">      <span class="comment">// 1.实例化 ContextImpl</span></span><br><span class="line">      ContextImpl appContext = <span class="keyword">new</span> ContextImpl();</span><br><span class="line">      <span class="comment">// 2.将 activity 注入 ContextImpl</span></span><br><span class="line">      appContext.setOuterContext(activity);</span><br><span class="line">      <span class="comment">// 3.将 ContextImpl 也注入到 activity中</span></span><br><span class="line">      activity.attach(appContext, ....);</span><br><span class="line">      <span class="comment">// ....</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="组件的局部单例"><a href="#组件的局部单例" class="headerlink" title="组件的局部单例"></a>组件的局部单例</h3><p>1.无论是哪种方式获取到的<code>LayoutInflater</code>(activity.getLayoutInflater()<code>或者</code>LayoutInflater.from(activity))都是通过<code>ContextImpl.getSystemService()</code>获取的，并且在<code>Activity</code>等组件的生命周期内保持单例；</p>
+<p>2.即使是<code>Activity.setContentView()</code>函数,本质上也还是通过<code>LayoutInflater.inflate()</code>函数对布局进行解析和创建。</p>
+<p>小结：</p>
+<p>context是一个抽象类，定义了获取系统资源的方法，系统对context进行了实现ContextImpl。为了保证Activity和Service是上下文，让系统让Activity和Service继承了ContextWrapper。又为了ContextWrapper不去实现context抽象类的方法，使用ContextWrapper对ContextImpl进行装饰（装饰者模式），只要创建Activity和Service的时候去创建一个ContextImpl注入到ContextWrapper即可一处实现，多处调用。同时保证了Activity和Service也是上下文对象</p>
+<p>参考</p>
 <p><a target="_blank" rel="noopener" href="https://juejin.im/post/6844903919286485000">LayoutInflater加载机制</a></p>
 
       
@@ -292,6 +306,15 @@
   
 <nav id="article-nav">
   
+    <a href="/2020/11/22/shell%E8%84%9A%E6%9C%AC%E5%AD%A6%E4%B9%A0/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          shell脚本学习
+        
+      </div>
+    </a>
+  
   
     <a href="/2020/11/02/MotionLayout%E5%85%A5%E9%97%A8/" id="article-nav-older" class="article-nav-link-wrap">
       <div class="article-nav-title">MotionLayout入门</div>
@@ -321,7 +344,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Context%EF%BC%9A%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1%E7%9A%84%E6%8F%90%E4%BE%9B%E8%80%85"><span class="toc-number">1.</span> <span class="toc-text">Context：系统服务的提供者</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ContextImpl%EF%BC%9AContext%E5%85%AC%E5%85%B1API%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-number">2.</span> <span class="toc-text">ContextImpl：Context公共API的实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ContextWrapper%EF%BC%9AContext%E7%9A%84%E8%A3%85%E9%A5%B0%E5%99%A8"><span class="toc-number">3.</span> <span class="toc-text">ContextWrapper：Context的装饰器</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Context%EF%BC%9A%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1%E7%9A%84%E6%8F%90%E4%BE%9B%E8%80%85"><span class="toc-number">1.</span> <span class="toc-text">Context：系统服务的提供者</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ContextImpl%EF%BC%9AContext%E5%85%AC%E5%85%B1API%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-number">2.</span> <span class="toc-text">ContextImpl：Context公共API的实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ContextWrapper%EF%BC%9AContext%E7%9A%84%E8%A3%85%E9%A5%B0%E5%99%A8"><span class="toc-number">3.</span> <span class="toc-text">ContextWrapper：Context的装饰器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%84%E4%BB%B6%E7%9A%84%E5%B1%80%E9%83%A8%E5%8D%95%E4%BE%8B"><span class="toc-number">4.</span> <span class="toc-text">组件的局部单例</span></a></li></ol>
                     </div>
                 </span>
             </div>

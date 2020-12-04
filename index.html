@@ -160,6 +160,241 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-gradle相关命令学习" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/04/gradle%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4%E5%AD%A6%E4%B9%A0/">gradle相关命令学子心</a>
+    </h1>
+  
+
+        <!--显示阅读次数-->
+
+        
+        <a href="/2020/12/04/gradle%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4%E5%AD%A6%E4%B9%A0/" class="archive-article-date">
+  	<time datetime="2020-12-04T15:49:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-04</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a target="_blank" rel="noopener" href="https://docs.gradle.org/current/userguide/tutorial_using_tasks.html">官方学习链接</a></p>
+<h3 id="12-5-学习记录"><a href="#12-5-学习记录" class="headerlink" title="12-5 学习记录"></a>12-5 学习记录</h3><p>可以用-q命令显示简单的输出，方便查看日志</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./gradlew -q showMyProperty</span><br></pre></td></tr></table></figure>
+
+
+
+<p>可以动态添加<code>task</code>，需要注意的是，动态添加的task，很多智能提示出不来，比如<code>doLast</code></p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">4.</span>times &#123; counter -&gt;</span><br><span class="line">    task <span class="string">&quot;task$counter&quot;</span> &#123;</span><br><span class="line">        doLast &#123;</span><br><span class="line">            println <span class="string">&quot;I&#x27;m task number $counter&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">task0.dependsOn task2, task3</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/12/04/gradle%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4%E5%AD%A6%E4%B9%A0/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-用shell提高生产效率" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/309875771/answer/579235911">Shell的作用是什么</a></p>
+<p>open -a 一个应用程序，比如open -a typora打开Typora</p>
+<p>使用 Typora 打开一个 Markdown 文件的命令是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">open -a typora README.md</span><br></pre></td></tr></table></figure>
+
+
+
+<p>也可以设置别名来快速用Typora打开文件</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/11/22/%E7%94%A8shell%E6%8F%90%E9%AB%98%E7%94%9F%E4%BA%A7%E6%95%88%E7%8E%87/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-shell脚本学习" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/11/22/shell%E8%84%9A%E6%9C%AC%E5%AD%A6%E4%B9%A0/">shell脚本学习</a>
+    </h1>
+  
+
+        <!--显示阅读次数-->
+
+        
+        <a href="/2020/11/22/shell%E8%84%9A%E6%9C%AC%E5%AD%A6%E4%B9%A0/" class="archive-article-date">
+  	<time datetime="2020-11-22T13:30:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-22</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="IDE"><a href="#IDE" class="headerlink" title="IDE"></a>IDE</h4><p>VsCode + Shell man插件+code runner插件</p>
+<h3 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h3><p>字符串可以使用单引号、双引号，也可以不使用引号。</p>
+<h4 id="获取字符串长度"><a href="#获取字符串长度" class="headerlink" title="获取字符串长度"></a>获取字符串长度</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">string=&quot;Isabella&quot;</span><br><span class="line">echo $&#123;#string&#125; #输出 8</span><br></pre></td></tr></table></figure>
+
+<h4 id="截取字符串"><a href="#截取字符串" class="headerlink" title="截取字符串"></a>截取字符串</h4><p>此栗子从字符串第 3 个字符开始截取 6 个字符：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">string=&quot;Corgi is so cute!&quot;</span><br><span class="line">echo $&#123;string:2:6&#125; # 输出 rgi is</span><br></pre></td></tr></table></figure>
+
+<h5 id="数组定义"><a href="#数组定义" class="headerlink" title="数组定义"></a>数组定义</h5><p>数组元素使用<code>小括号</code>括起来，每个元素之间用<code>空格</code>分割。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">users&#x3D;(xialei zhangsan lisi)复制代码</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="读取数组元素"><a href="#读取数组元素" class="headerlink" title="读取数组元素"></a>读取数组元素</h5><p>语法如下:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">&#123;数组名称[下标]&#125;复制代码</span></span><br></pre></td></tr></table></figure>
+
+<p>比如上例中读取第2个人</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">users=(xialei zhangsan lisi)</span><br><span class="line">echo $&#123;users[1]&#125; # 输出zhangsan复制代码</span><br></pre></td></tr></table></figure>
+
+<p>使用<code>@</code>作为下标可以获取数组的所有元素。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">users=(xialei zhangsan lisi)</span><br><span class="line">echo $&#123;users[@]&#125; # 输出 xialei zhangsan lisi复制代码</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="获取数组长度"><a href="#获取数组长度" class="headerlink" title="获取数组长度"></a>获取数组长度</h5><p>语法如下</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">length=$&#123;#数组名[@]&#125;复制代码</span><br></pre></td></tr></table></figure>
+
+<p>比如输出users数组的长度</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">users=(xialei zhangsan lisi)</span><br><span class="line">echo $&#123;#users[@]&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="算术运算符"><a href="#算术运算符" class="headerlink" title="算术运算符"></a>算术运算符</h3><blockquote>
+<p>原生bash不支持简单的数学运算，需要借助expr命令。</p>
+</blockquote>
+<p>例如，输出两个数的和：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sum&#x3D;&#96;expr 1 + 1&#96;</span><br><span class="line">echo $sum复制代码</span><br></pre></td></tr></table></figure>
+
+<p>注意：</p>
+<blockquote>
+<p>操作数和操作符之间必须用空格分开；</p>
+<p>表达式必须使用反引号包裹；</p>
+</blockquote>
+<p>参考链接</p>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844904062924619790">Shell入门</a></p>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/entry/6844903799727849480">打造高效的工作环境 – Shell 篇</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/11/22/shell%E8%84%9A%E6%9C%AC%E5%AD%A6%E4%B9%A0/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-LayoutInflater加载机制-学习笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
