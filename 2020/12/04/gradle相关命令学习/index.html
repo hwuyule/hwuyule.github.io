@@ -8,17 +8,19 @@
   <link rel="dns-prefetch" href="https://hwuyule.github.io">
   <title>gradle相关命令学习 | HeMing&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="官方学习链接 groovy DSL链接 groovy官方学习文档 12-5 学习记录可以用-q命令显示简单的输出，方便查看日志 1.&#x2F;gradlew -q showMyProperty    可以动态添加task，需要注意的是，动态添加的task，很多智能提示出不来，比如doLast 123456784.times &amp;#123; counter -&gt;    task &quot;task$c">
+  <meta name="description" content="官方学习链接 groovy DSL链接 groovy官方学习文档 写给 Android 开发者的 Gradle 系列 gradle api Android Plugin DSL 学习 Gradle task 学习 12-5 学习记录可以用-q命令显示简单的输出，方便查看日志 1.&#x2F;gradlew -q showMyProperty    可以动态添加task，需要注意的是，动态添加的task，很多">
 <meta property="og:type" content="article">
 <meta property="og:title" content="gradle相关命令学习">
 <meta property="og:url" content="https://hwuyule.github.io/2020/12/04/gradle%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4%E5%AD%A6%E4%B9%A0/index.html">
 <meta property="og:site_name" content="HeMing&#39;s Blog">
-<meta property="og:description" content="官方学习链接 groovy DSL链接 groovy官方学习文档 12-5 学习记录可以用-q命令显示简单的输出，方便查看日志 1.&#x2F;gradlew -q showMyProperty    可以动态添加task，需要注意的是，动态添加的task，很多智能提示出不来，比如doLast 123456784.times &amp;#123; counter -&gt;    task &quot;task$c">
+<meta property="og:description" content="官方学习链接 groovy DSL链接 groovy官方学习文档 写给 Android 开发者的 Gradle 系列 gradle api Android Plugin DSL 学习 Gradle task 学习 12-5 学习记录可以用-q命令显示简单的输出，方便查看日志 1.&#x2F;gradlew -q showMyProperty    可以动态添加task，需要注意的是，动态添加的task，很多">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/5/11/1634ccdbe9c9cd34?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
 <meta property="article:published_time" content="2020-12-04T15:49:47.000Z">
-<meta property="article:modified_time" content="2020-12-04T16:35:40.219Z">
+<meta property="article:modified_time" content="2020-12-07T15:55:59.998Z">
 <meta property="article:author" content="huangheming">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2018/5/11/1634ccdbe9c9cd34?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
   
     <link rel="alternative" href="/atom.xml" title="HeMing&#39;s Blog" type="application/atom+xml">
   
@@ -193,6 +195,10 @@
         <p><a target="_blank" rel="noopener" href="https://docs.gradle.org/current/userguide/tutorial_using_tasks.html">官方学习链接</a></p>
 <p><a target="_blank" rel="noopener" href="https://docs.gradle.org/current/dsl/index.html">groovy DSL链接</a></p>
 <p><a target="_blank" rel="noopener" href="https://groovy-lang.org/differences.html">groovy官方学习文档</a></p>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903604642562061">写给 Android 开发者的 Gradle 系列</a></p>
+<p><a target="_blank" rel="noopener" href="https://docs.gradle.org/4.4/dsl/org.gradle.api.Project.html#org.gradle.api.Project:repositories(groovy.lang.Closure)">gradle api</a></p>
+<p><a target="_blank" rel="noopener" href="https://google.github.io/android-gradle-dsl/3.1/">Android Plugin DSL 学习</a></p>
+<p><a target="_blank" rel="noopener" href="https://avatarqing.github.io/Gradle-Plugin-User-Guide-Chinese-Verision/basic_project/android_tasks.html">Gradle task 学习</a></p>
 <h3 id="12-5-学习记录"><a href="#12-5-学习记录" class="headerlink" title="12-5 学习记录"></a>12-5 学习记录</h3><p>可以用-q命令显示简单的输出，方便查看日志</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./gradlew -q showMyProperty</span><br></pre></td></tr></table></figure>
 
@@ -201,6 +207,56 @@
 <p>可以动态添加<code>task</code>，需要注意的是，动态添加的task，很多智能提示出不来，比如<code>doLast</code></p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">4.</span>times &#123; counter -&gt;</span><br><span class="line">    task <span class="string">&quot;task$counter&quot;</span> &#123;</span><br><span class="line">        doLast &#123;</span><br><span class="line">            println <span class="string">&quot;I&#x27;m task number $counter&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">task0.dependsOn task2, task3</span><br></pre></td></tr></table></figure>
 
+<p>12-7 学习</p>
+<h2 id="Gradle-task"><a href="#Gradle-task" class="headerlink" title="Gradle task"></a>Gradle task</h2><p>其实说到这里各位读者理应对 task 有一个基本的概念，一个 task 就是一个函数，没有什么神秘的地方。想要知道当前 Android 项目中共有哪些 task，可以在项目目录下输入：</p>
+<blockquote>
+<p>./gradlew tasks（Mac、Linux）</p>
+<p>gradlew tasks（Windows，后文同）</p>
+</blockquote>
+<p>这仅是部分 task，如果想要查看全部的 task 可以添加 <code>--all</code> 参数：</p>
+<blockquote>
+<p>./gradlew tasks –all</p>
+</blockquote>
+<p>可以看到所有的 task，可能有经验的读者更是感觉到亲切，提取部分 task 说明下：</p>
+<ul>
+<li><code>compileDebugJavaWithJavac</code>：编译 java 文件</li>
+<li><code>processDebugManifest</code>：生成最终 AndroidManifest 文件</li>
+<li><code>compileDebugAidl</code>：编译 AIDL 文件</li>
+<li><code>packageDebug</code>：打包成 apk</li>
+</ul>
+<p>而如果为 release 包开启了混淆，可看到还有 <code>transformClassesAndResourcesWithProguardForRelease</code> task，即为 release 包混淆。</p>
+<p>这些 task 实际上贯穿了开发者们的日常开发流程，只是 IDE 在上层封装了一层，开发者们点点按钮就完成了这些操作。当然也有读者会疑惑，这些 task 从哪里来的？为什么没有在 <code>build.gradle</code> 中看到蛛丝马迹？这些 task 都是 plugin 中的，在 <code>build.gradle</code> 顶部 apply 的 plugin 中的（<code>com.android.application/com.android.library</code>）。在后续的文章中笔者将会介绍如何找到这些 task 的源码、如何阅读它们、如何写 task、如何写 plugin 以及解析较为知名的 gradle 插件源码，这些也正是 Android 开发者学习 gradle 的目的所在。</p>
+<h2 id="Gradle-构建周期"><a href="#Gradle-构建周期" class="headerlink" title="Gradle 构建周期"></a>Gradle 构建周期</h2><p>根据<a target="_blank" rel="noopener" href="https://docs.gradle.org/current/userguide/build_lifecycle.html#sec:build_phases">Build phases 文档</a> 和 <a target="_blank" rel="noopener" href="https://docs.gradle.org/current/userguide/build_lifecycle.html#sec:settings_file">Settings file 文档</a>可以知道，Gradle 构建周期分为</p>
+<ul>
+<li><p><code>Initialization</code>：Gradle支持单个和多项目构建。在 Initialization 阶段，Gradle 将会确定哪些项目将参与构建，并为每个项目创建一个 Project 对象实例。对于 Android 项目来说即为执行 <code>setting.gradle</code> 文件。那么日常开发中 <code>setting.gradle</code> 文件是如何书写的呢，假设当前应用中除 app 以外还有一个 a module 和 b module，那么 <code>setting.gradle</code> 文件应类似如下：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">include <span class="string">&#x27;:app&#x27;</span>, <span class="string">&#x27;:a&#x27;</span>, <span class="string">&#x27;:b&#x27;</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>所以 Gradle 将会为它们三个分别创建一个 Project 对象实例。</p>
+<ul>
+<li><p><code>Configuration</code>：在这一阶段项目配置对象，所有项目的构建脚本将会被「执行」，这样才能够知道各个 task 之间的依赖关系。需要说的一点是，这里提到的「执行」可能会稍有一些歧义：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">task a &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">task testBoth &#123;</span><br><span class="line">	<span class="comment">// 依赖 a task 先执行</span></span><br><span class="line">	dependsOn(<span class="string">&quot;a&quot;</span>)</span><br><span class="line">	println <span class="string">&#x27;我会在 Configuration 和 Execution 阶段都会执行&#x27;</span></span><br><span class="line">    doFirst &#123;</span><br><span class="line">      println <span class="string">&#x27;我仅会在 testBoth 的 Execution 阶段执行&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">    doLast &#123;</span><br><span class="line">      println <span class="string">&#x27;我仅会在 testBoth 的 Execution 阶段执行&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>写在 task 闭包中的内容是会在 <code>Configuration</code> 中就执行的，例如上面的 <code>dependsOn(&quot;a&quot;)</code> 和 <code>println</code> 内容；而 <a target="_blank" rel="noopener" href="https://docs.gradle.org/4.6/dsl/org.gradle.api.Task.html#org.gradle.api.Task:doFirst(groovy.lang.Closure)">doFirst {}</a>/<a target="_blank" rel="noopener" href="https://docs.gradle.org/4.6/dsl/org.gradle.api.Task.html#org.gradle.api.Task:doLast(groovy.lang.Closure)">doLast {}</a> 闭包中的内容是在 <code>Execution</code> 阶段才会执行到（<code>doFirst &#123;&#125;/ doLast &#123;&#125;</code> 实际上就是给当前 task 添加 Listener，这些 Listeners 只会在当前 task <code>Execution</code> 阶段才会执行）。</p>
+<blockquote>
+<p>建议各位读者将这个 task 复制黏贴到 app 的 <code>build.gradle</code> 中，然后观察点击 Android Studio 的 Sync 按钮（含 <code>Configuration</code> 阶段）和在命令行输入 <code>./gradlew app:testBoth</code> 时命令行（<code>testBoth</code> 的 <code>Execution</code> 阶段）输出的结果。便可理解上述闭包内容的执行过程。当然你也可以查看 <a target="_blank" rel="noopener" href="https://docs.gradle.org/current/userguide/build_lifecycle.html#sec:settings_file">Settings file</a> 中的案例来理解。</p>
+</blockquote>
+<p>对于 Android 项目来说即为执行各个 module 下的 <code>build.gradle</code> 文件，这样各个 <code>build.gradle</code> 文件中的 task 的依赖关系就被确认下来了（例如 <code>assembleDebug</code> task 的执行依赖于其他 tasks 先执行，而这个依赖关系的确定就是在 <code>Configuration</code> 阶段）。</p>
+</li>
+<li><p><code>Execution</code>：task 的执行阶段。首先执行 <code>doFirst &#123;&#125;</code> 闭包中的内容，最后执行 <code>doLast &#123;&#125;</code> 闭包中的内容。</p>
+</li>
+</ul>
+<p>在命令行中执行某一个 task，是可以清晰地看见每一个执行流程：</p>
+<h3 id="hook-Gradle-构建过程"><a href="#hook-Gradle-构建过程" class="headerlink" title="hook Gradle 构建过程"></a>hook Gradle 构建过程</h3><p>在命令行输入 <code>./gradlew xxx</code> 并按下回车之后的执行过程中，就会执行上面的流程，再通过一张<a target="_blank" rel="noopener" href="https://blog.csdn.net/innost/article/details/48228651">深入理解Android之Gradle</a>中的图加深印象——</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/5/11/1634ccdbe9c9cd34?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="这里写图片描述"></p>
+<p>然而在笔者目前为止碰到的 Gradle 开发中，很少提及到上述的 hook 系列。用的比较多的一个是前文提到的 task 中的 <code>doFirst &#123;&#125;/ doLast &#123;&#125;</code>，再一个就是 Project 在 <code>Configuration</code> 阶段结束的 hook，前文也提到**<code>Configuration</code> 阶段将会执行每一个 Project 的 <code>build.gradle</code> 文件**，那么如何监听这每一个 Project 的引入后的点呢？通过 <a target="_blank" rel="noopener" href="https://docs.gradle.org/4.6/dsl/org.gradle.api.Project.html#org.gradle.api.Project:afterEvaluate(groovy.lang.Closure)">Project.afterEvaluate</a> ——</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;afterEvaluate &#123; Project project -&gt;</span><br><span class="line">&#x2F;&#x2F;  println &#39;hook afterEvaluate&#39;</span><br><span class="line">&#x2F;&#x2F;&#125;</span><br><span class="line"></span><br><span class="line">task hook &#123; Project project -&gt;</span><br><span class="line">  afterEvaluate &#123;</span><br><span class="line">    println &#39;hook afterEvaluate&#39;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p>那么为什么要 hook Project 的 <code>afterEvaluate</code> 阶段呢？因为在 <code>afterEvaluate</code> 阶段的时候，当前 Project 内的 task 信息才能被掌握，例如想在 <code>assembleDebug</code> task 前输出一段信息，那么在 <code>app/build.gradle</code> 中撰写以下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; task badHook &#123;</span><br><span class="line">&#x2F;&#x2F;   tasks.findByName(&quot;assembleDebug&quot;).doFirst &#123;</span><br><span class="line">&#x2F;&#x2F;     println &#39;hook afterEvaluate from BadHook&#39;</span><br><span class="line">&#x2F;&#x2F;   &#125;</span><br><span class="line">&#x2F;&#x2F; &#125;</span><br><span class="line"></span><br><span class="line">task assDHook &#123;</span><br><span class="line">  afterEvaluate &#123;</span><br><span class="line">    tasks.findByName(&quot;assembleDebug&quot;).doFirst &#123;</span><br><span class="line">      println &#39;hook afterEvaluate from assHook&#39;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p>此时如果调用 <code>assembleDebug</code> task 的话，首先是 <code>Initialization</code> 阶段，再是 <code>Configuration</code> 阶段，该阶段中当 appProject 到达 <code>afterEvaluate</code> 阶段的时候 appProject 中的 tasks 信息将会全部被获取，当然这其中也包括 <code>assembleDebug</code> task，所以此时再给它添加一个 <code>doFirst &#123;&#125;</code> 闭包便可以达到目的。而像 <code>badHook</code> 闭包的内容将会在 <code>Initialization</code> 阶段执行，此时 appProject 并没有获取全部的 task 信息，将会导致压根找不到 <code>assembleDebug</code> 的错误。</p>
 
       
 
@@ -332,7 +388,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#12-5-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95"><span class="toc-number">1.</span> <span class="toc-text">12-5 学习记录</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#12-5-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95"><span class="toc-number">1.</span> <span class="toc-text">12-5 学习记录</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Gradle-task"><span class="toc-number"></span> <span class="toc-text">Gradle task</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Gradle-%E6%9E%84%E5%BB%BA%E5%91%A8%E6%9C%9F"><span class="toc-number"></span> <span class="toc-text">Gradle 构建周期</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#hook-Gradle-%E6%9E%84%E5%BB%BA%E8%BF%87%E7%A8%8B"><span class="toc-number">1.</span> <span class="toc-text">hook Gradle 构建过程</span></a></li></ol>
                     </div>
                 </span>
             </div>
